@@ -1,0 +1,16 @@
+{
+  "name": "techmania.com",
+  "version": "0.0.1-1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "ejs": "*"
+  },
+  "subdomain": "techmania",
+  "engines": {
+    "node": "0.10.x"
+  }
+}
