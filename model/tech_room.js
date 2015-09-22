@@ -29,7 +29,7 @@
 	      room_questions:[
 	        	          {
 	        	        	 
-	        	              question_from_email:String,
+	        	              question_from_email:{type:String,required: true},
 	        	              question_content:String,
 	        	              question_answer_owner:{
 	        	            	    answer_content:String,

@@ -195,7 +195,7 @@ if(searchCriteria.criteria.localeCompare('email') === 0){
 		
 		if(currentRoom.room_questions[i].question_tags.indexOf(searchCriteria.query) > 0){
 			console.log(currentRoom.room_questions[i].question_tags);	
-			  questions_based_on_email.push(currentRoom.room_questions[i]);
+			   questions_based_on_email.push(currentRoom.room_questions[i]);
 		}
 			
 	}//loop

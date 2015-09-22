@@ -56,6 +56,7 @@
 	 
 	 $('.info_link').click(function(e){
 		    
+		 //alert($(this).text());
 		  e.preventDefault();
 		  $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
 	    var queryData = {
