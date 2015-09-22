@@ -137,13 +137,15 @@
 							<h4>
 							  Q: <%=question.question_content %> ?
 							</h4>
-							<p>
+							<p class="text-justify">
 						    <B>
 							  Ans:
 							</B>
-							<small>
+							
+							<small >
 							 <%=question.question_answer_owner.answer_content %>
 							 </small>
+							 
 							</p>
 						<span><a class="btn active btn-xs btn-success" href="#">Add Answer</a>
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
@@ -156,7 +158,9 @@
 					      </div>
 					     <div id="panel-element-42936" class="panel-collapse collapse">
 						   <div class="panel-body">
+						   <p>
 							  <%=question.question_answer_owner.answer_content %>
+							  </p>
 						  </div>
 					    </div>
 				      </div>
