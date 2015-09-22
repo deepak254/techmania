@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="img/favicon.png">
+
+<script type="text/javascript"  src="js/ejs_production.js"></script>
+<script type="text/javascript" src= "./node_modules/ejs/ejs.min.js"></script>
+    <link rel='stylesheet' href='/css/style.css' />
+    
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    
+  </head>
+<body>
+
+ <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<header>
+  
+  	<% include ./common_navigation %>
+  </header>
+  
+  
+
+  <!-- sidebar --> 
+	         
+	      
+	            
+         <div class="sidebar-nav navbar-default sidebar" role="navigation">
+               
+             <ul class="nav" id="side-menu">
+                     
+                        
+                 <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search Tags..">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                          <%room.room_tags.forEach(function(tag){ %>
+			         <li class="info_link text-left" ><a><%=tag%></a></li>
+                    <%})%>
+                     </ul>
+                  </div>
+                 
+  <br><br>
+
+<!-- sidebar --> 
+	           
+
+<div id="page-wrapper">
+   <div class="row">
+		
+		<!--  <div class="col-md-2">
+		
+<h4 class="text-left text-success">
+			Find By Tags
+		</h4>
+		  <nav class="nav-sidebar">
+		  <ul class="nav tabs">
+		  <%room.room_tags.forEach(function(tag){ %>
+			  <li class=""><a href="#tab2" data-toggle="tab"><%=tag%></a></li>
+          <%})%>
+       </ul>
+	</nav>
+    <br>
+
+</div>-->
+		
+		
+	<div class="col-md-10">
+	  <br>
+	  <h2 class="text-left">
+			 <%=room.room_name%> Interview Questions
+			</h2>
+			<br>
+			<div class="row">
+			
+		         <div class="col-md-10">
+					
+					
+					  <div class="input-group">
+                      <input type="search" class="form-control" id="search" placeholder="Search questions from  email...">
+                       <span class="input-group-btn">
+                         <button class="btn btn-primary"  id="searchButton" type="submit"><i class="fa fa-search"></i></button>
+                         </span>
+                       </div><!-- /input-group -->
+                
+					<br><br>
+            	
+			
+			
+			
+		<div id="question_area" name="div_question">	
+			 <%roomquestions.forEach(function(question){ %>
+		         
+					 <div class="thumbnail" > 
+					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
+						<div class="caption">
+							<h4>
+							  Q: <%=question.question_content %> ?
+							</h4>
+							<p>
+						    <B>
+							  Ans:
+							</B>
+							<small>
+							 <%=question.question_answer_owner.answer_content %>
+							 </small>
+							</p>
+						<span><a class="btn active btn-xs btn-success" href="#">Add Answer</a>
+							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+					   </span>
+					   </div>
+ 				       <div class="panel-group" id="panel-79968">
+				        <div class="panel panel-default">
+					      <div class="panel-heading">
+						    <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-79968" href="#panel-element-42936" style="font-size: 12px;">See All Answers</a>
+					      </div>
+					     <div id="panel-element-42936" class="panel-collapse collapse">
+						   <div class="panel-body">
+							  <%=question.question_answer_owner.answer_content %>
+						  </div>
+					    </div>
+				      </div>
+                   </div>
+				
+				   <!-- Your like button code -->
+   
+		<!--  <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>	-->	
+				</div>
+			 
+		<%})%>
+	
+
+	
+	<ul class="pager">
+  <li>
+    <a  href="#">Previous</a>
+  </li>
+  <li>
+    <a href="#">Next</a>
+  </li>
+</ul>
+</div><!-- col- md -10  group -->
+
+	<br><br>
+   <p>Copyright &copy; techmania</p>
+</div> <!-- after panel group -->
+ </div>
+</div>
+
+<br>
+
+<div class="col-md-2">
+<br>
+<a class="btn-sm btn-primary" href="/upload">Upload QA</a>
+</div>
+
+</div>
+</div>
+
+
+
+
+ 
+ <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+   
+   <script src="js/techqa.js">
+  
+ </script>
+
+
+
+
+	  
+</body>
+</html>
