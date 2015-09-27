@@ -40,7 +40,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-				<form role="form" action="/upload_question" method="post">
+				<form role="form" action="/upload_question" method="post" >
 					<div class="form-group">
 						<label class="control-label" for="sel1">Select Technology</label>	
 					 <select class="form-control" id="sel1" TITLE="Select Technology"
@@ -60,20 +60,20 @@
 						<div class="form-group">
 							<label class="control-label" for="exampleInputEmail1">Email
 								address</label>
-							<input class="form-control" id="exampleInputEmail1" required="required" name=ques[email]
+							<input class="form-control" id="exampleInputEmail1" required data-validation-required-message="please enter your email" name=ques[email]
  								placeholder="Enter email" type="email">
 						</div>
 						
 						
 						<div class="form-group">
 							<label class="control-label" for="textarea1">Question</label>
-							<textarea class="form-control" name=ques[question] id="textarea1" placeholder="Ask Question here" required="required"></textarea>
+							<textarea class="form-control" name=ques[question] id="textarea1" placeholder="Ask Question here" required data-validation-required-message="enter question"></textarea>
 						</div>
 						
 						<div class="form-group">
 							<label class="control-label" for="textarea2">Answer</label>
 							
-							<textarea class="form-control" id="textarea2" placeholder="Answer here"  name=ques[answer]></textarea>
+							<textarea class="form-control" id="textarea2" placeholder="Answer here" required data-validation-required-message="answer could not be blank" name=ques[answer]></textarea>
 							
 						
 						
@@ -81,36 +81,40 @@
 						
 						<div class="form-group">
 							<label class="control-label" for="sel2">select Tags for your Question</label><br>
-							<select multiple id="example-dropRight" multiple="multiple" class="form-control"  name=ques[tags] style=" vertical-align: top;">
-        					    <option>j2se</option>
+							<select required="required" multiple id="example-dropRight" multiple="multiple" class="form-control"  name=ques[tags] style="vertical-align: top;">
+        					    <option>core java</option>
        							 <option>j2ee</option>
-        						<option>string</option>
-        						<option>file io</option>
+        						<option>Strings</option>
+        						<option>File Io</option>
         						<option>socket</option>
-        						<option>collection framework</option>
-       							 <option>interfaces</option>
-        						<option>oops</option>
-        						<option>inner classes</option>
-        						<option>java xml</option>
+        						<option>collections</option>
+       							 <option>jdbc</option>
+        						<option>generics</option>
+        						<option>flow control</option>
+        						<option>localization</option>
         						<option>webservices</option>
-       							 <option>jms</option>
+       							 <option>interfaces</option>
         						<option>ejb</option>
         						<option>jta</option>
         						<option>jaas</option>
         						<option>jndi</option>
        							 <option>servlets</option>
         						<option>jsp</option>
-        						<option>java 8</option>
+        						<option>java8</option>
         						<option>lembda expression</option>
         						<option>enumeration</option>
        							 <option>stream method</option>
         						<option>jvm</option>
-        						<option>bin utilities</option>
+        						<option>multithreading</option>
         						<option>jsf</option>
+        						<option>jpa</option>
                             </select>
 						</div>
-						
-						
+						<!-- ['core java','j2ee','j2me','Strings','File Io','socket','jdbc','collections','generics','arrays','flow control',
+//		'localization','interfaces','jsp','servlets','jpa','ejb','jaas','jms','java xml','jndi',
+//		'jta','java mail','multithreading','struts','jsf','glassfish','tomcat','jpa','java8'
+//		];
+						 -->
 						  <!-- <div class="example">
                                       
                                         <select id="example-dropRight" multiple="multiple">
@@ -136,7 +140,7 @@
 	
 <% include ./footer %>	
 
-
+<script src="js/jqBootstrapValidation.js"></script>
   <script type="text/javascript">
    							 $(document).ready(function() {
         						$('#example-dropRight').multiselect({

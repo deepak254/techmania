@@ -30,7 +30,7 @@
 	        	          {
 	        	        	 
 	        	              question_from_email:{type:String,required: true},
-	        	              question_content:String,
+	        	              question_content:{type:String,required: true},
 	        	              question_answer_owner:{
 	        	            	    answer_content:String,
 		                    	    answer_rating:Number

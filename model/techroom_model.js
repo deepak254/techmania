@@ -6,7 +6,7 @@
 
  var exports = module.exports = {};
   var mongoose = require('mongoose');
- var db = mongoose.connect('mongodb://deepak:fcuk1234@ds049631.mongolab.com:49631/mytechroom');
+var db = mongoose.connect('mongodb://deepak:fcuk1234@ds049631.mongolab.com:49631/mytechroom');
   //var db = mongoose.connect('mongodb://localhost/mytechroom');
   exports.db=mongoose.connection;
   var techroom_schema=require('../model/tech_room');
@@ -44,13 +44,11 @@ function store(room_name,roomtags){
   
 
 
- 
+// 
 //var tags=['core java','j2ee','j2me','Strings','File Io','socket','jdbc','collections','generics','arrays','flow control',
 //		'localization','interfaces','jsp','servlets','jpa','ejb','jaas','jms','java xml','jndi',
-//		'jta','Strings','java mail','multithreading','struts','jsf','glassfish','tomcat'
+//		'jta','java mail','multithreading','struts','jsf','glassfish','tomcat','jpa','java8'
 //		];
-//
-////
 //
 //
 //store('Java',tags);
@@ -62,18 +60,12 @@ function store(room_name,roomtags){
 //store('Nosql',tags);
 //store('Python',tags);
 //store('Android',tags);
-//store('Iphone',tags);
+//store('iOS',tags);
+//store('Ruby',tags);
+//store('Scala',tags);
+//store('Hadoop',tags);
 
-//Java
-//Automation Testing
-//.Net
-//Javascript
-//Node js
-//Sql
-//Nosql
-//Python
-//Android
-//Iphone
+
  
 //exports.storechatMessages=function(roomname,from,to,sentDate,type,content){
 //

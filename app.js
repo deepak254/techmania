@@ -24,14 +24,11 @@ var favicon = require('serve-favicon');
 var  passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var passport_http = require('passport-http');
-  var flash = require('connect-flash');
-  var session = require('express-session');
-  var socketio = require('socket.io');
+ var flash = require('connect-flash');
+ var session = require('express-session');
+ var socketio = require('socket.io');
 //var mongoose = require('mongoose');
 //var myroom=require('./model/roommodel');
-
-
-
 
 
 
@@ -42,29 +39,20 @@ var passport_http = require('passport-http');
 var app = express();
 
 
-
-
-
-
-
- 
-
 //app.use(cookieParser('secret'));
 //app.use(session({cookie: { maxAge: 60000 }}));
 //app.use(flash());
 
- app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(cookieParser());
-  app.use(bodyParser());
+  app.use(bodyParser()); 
   //app.use(bodyParser.json());
   app.use(session({ secret: 'mysecretkey' }));
   app.use(flash()); 
   app.use(passport.initialize());
   app.use(passport.session());
   
-
-
-app.use('/',routepath.router);
+  app.use('/',routepath.router);
 
 //var rooms=myroom.rooms;
 // all environments

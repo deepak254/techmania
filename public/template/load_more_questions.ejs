@@ -1,0 +1,53 @@
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ 
+ <% morequestions.forEach(function(question){ %>
+		         
+				
+					 <div id="load_more_div" class="thumbnail" > 
+					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
+						<div class="caption">
+							<h4>
+							  Q: <%=question.question_content %> ?
+							</h4>
+							<p class="text-justify">
+						    <B>
+							  Ans:
+							</B>
+							
+							<small >
+							 <%=question.question_answer_owner.answer_content %>
+							 </small>
+							 
+							</p>
+						<span><a class="btn active btn-xs btn-success" href="#">Add Answer</a>
+							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+					   </span>
+					   </div>
+ 				       <div class="panel-group" id="panel-79968">
+				        <div class="panel panel-default">
+					      <div class="panel-heading">
+						    <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-79968" href="#panel-element-42936" style="font-size: 12px;">See All Answers</a>
+					      </div>
+					     <div id="panel-element-42936" class="panel-collapse collapse">
+						   <div class="panel-body">
+						   <p>
+							  <%=question.question_answer_owner.answer_content %>
+							  </p>
+						  </div>
+					    </div>
+				      </div>
+                   </div>
+				
+				   <!-- Your like button code -->
+   
+		<!--  <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>	-->	
+				</div>
+			 
+		<%})%>
+	-

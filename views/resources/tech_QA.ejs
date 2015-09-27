@@ -20,9 +20,11 @@
 <link rel="apple-touch-icon-precomposed"
 	href="img/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="img/favicon.png">
+  <link href="css/sb-admin-2.css" rel="stylesheet">
 
 <script type="text/javascript"  src="js/ejs_production.js"></script>
 <script type="text/javascript" src= "./node_modules/ejs/ejs.min.js"></script>
+
     <link rel='stylesheet' href='/css/style.css' />
     
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -31,7 +33,6 @@
     <link href="css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
 
     
   </head>
@@ -64,21 +65,27 @@
                      
                         
                  <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search Tags..">
+                   <form id="tag_search_form">         
+                   <div   class="input-group custom-search-form">
+                                
+                             
+                              <input id="remote" type="text" class="form-control" placeholder="Search Tags..">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
                             </div>
+                            </form> 
                             <!-- /input-group -->
-                        </li>
-                          <%room.room_tags.forEach(function(tag){ %>
-			         <li class="info_link text-left" ><a><%=tag%></a></li>
+                            
+                          </li>
+                          <%room.room_tags.sort().forEach(function(tag){ %>
+			              <li class="info_link text-left" ><a><%=tag%></a></li>
                     <%})%>
+                     	 <li class="sidebar-search"><button class="btn-sm btn-warning">load more</button></li>
                      </ul>
-                  </div>
+                 </div>
                  
   <br><br>
 
@@ -117,7 +124,7 @@
 					
 					
 					  <div class="input-group">
-                      <input type="search" class="form-control" id="search" placeholder="Search questions from  email...">
+                      <input type="search" class="form-control" id="search" placeholder="Search questions from  email..." >
                        <span class="input-group-btn">
                          <button class="btn btn-primary"  id="searchButton" type="submit"><i class="fa fa-search"></i></button>
                          </span>
@@ -131,6 +138,7 @@
 		<div id="question_area" name="div_question">	
 			 <%roomquestions.forEach(function(question){ %>
 		         
+				
 					 <div class="thumbnail" > 
 					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
@@ -173,19 +181,21 @@
 			 
 		<%})%>
 	
-
+			
 	
-	<ul class="pager">
+<!-- 	<ul class="pager">
   <li>
     <a  href="#">Previous</a>
   </li>
   <li>
     <a href="#">Next</a>
   </li>
-</ul>
+</ul> -->
 </div><!-- col- md -10  group -->
+<br>
+<button id="load_more_questions"  href="#" style="display:block;margin: 0 auto;" class="btn-xs btn-warning">load more questions</button>
 
-	<br><br>
+	<br><br><br><br>
    <p>Copyright &copy; techmania</p>
 </div> <!-- after panel group -->
  </div>
@@ -202,24 +212,9 @@
 </div>
 
 
-
-
  
- <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-   
-   <script src="js/techqa.js">
-  
- </script>
-
-
-
+   <script src="js/techqa.js"></script>
+ 
 
 	  
 </body>

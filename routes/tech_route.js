@@ -23,6 +23,9 @@
  var currentRoom="";
  var allrooms=[];
  var roomQuestions=[];
+
+ var questions_limit=0;
+ var question_index=0;
 //express().use(bodyParser.urlencoded());
 express().use(bodyParser.json());
 
@@ -116,7 +119,36 @@ router.get('/getContact', function(req,res){
  		
  		res.render('./resources/chat_room');
  });
-//#2
+
+ 
+ //route that loads and sends 10 questions on each ajax request..
+ router.get('/load_more',function(req,res){
+	 var more_questions=[];
+	 question_index++;
+	 var new_limit=questions_limit+2;
+	 console.log(question_index);
+	 console.log(questions.length);
+	 question_index=question_index+questions.length;
+	if(question_index>questions.length){
+		res.send('End');
+	}
+	 
+	 for(var i=question_index;i<=new_limit;i++){
+		 
+		 if(i === questions.length){
+			break;
+		}
+		else{
+		  more_questions.push(questions[i]);
+		}
+	}
+	 
+	 res.send(more_questions);
+	 
+ });
+ 
+ 
+ //#2
  router.get('/QA', function(req,res){
 //	 
 //	   mytechroom.rooms.findOne({room_name:'Java'}, function(err,room){
@@ -124,13 +156,30 @@ router.get('/getContact', function(req,res){
 //	      currentRoom=room;
 //	      res.render('./resources/tech_QA',{room:currentRoom});
 //	    });
-	   res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions});
+	 
+//	 questions_limit=2;
+//	 var questions_to_send=[];
+//	if(questions.length === 0){
+//		
+//		res.end('No questions available');
+//	} 
+//	else if(questions.length < 2){
+//		
+//		res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions});
+//	}
+//  else{
+//	  for(question_index=0;question_index< questions_limit;question_index++)
+//	 {	
+//		  questions_to_send.push(questions[question_index]); 	
+//	  }
+	  res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions});
 	   //console.log(currentRoom);
- 		
- });
+   //}	
+ 
+});
  
  router.get('/table', function(req,res){
-	 mytechroom.rooms.findOne({room_name:'Java'}, function(err,room){
+	 mytechroom.rooms.findOne({room_name:'Node js'}, function(err,room){
 	      if(err){res.send("error");}
 	      roomQuestions=room.room_questions;
 	     res.render('./resources/all_questions',{questions:room.room_questions});
@@ -152,6 +201,16 @@ router.get('/getContact', function(req,res){
  });
  
  
+router.get('/typeahead',function(req,res){
+	 
+	 
+	res.render('typeahead');
+		 
+		 
+	
+ });
+ 
+ 
  router.get('/:id/like',function(req,res){
 	 
 	 var html="<html><body>"+req.params.id+" liked </body></html>"
@@ -164,15 +223,17 @@ router.get('/getContact', function(req,res){
  });
  
  
- //Route that handle ajax request for Questions search based on emails 
- router.get('/searching', function(req,res){
+ //Route that handle ajax request for Questions search based on emails and tags.
+router.get('/searching', function(req,res){
 	
 	
 	var questions_based_on_email=[];
+	var questions_based_on_tag=[];
 	 //console.log(req.url);
 	 var theUrl = url.parse( req.url);
 	  //console.log(theUrl);
-     // gets the query part of the URL and parses it creating an object
+     
+	 // gets the query part of the URL and parses it creating an object
      var queryObj = queryString.parse(theUrl.query);
      //console.log(queryObj);
 	 var searchCriteria = JSON.parse(queryObj.jsonData);
@@ -180,7 +241,7 @@ router.get('/getContact', function(req,res){
 	 console.log(searchCriteria.query);
 	 console.log(searchCriteria.criteria);
 	
-if(searchCriteria.criteria.localeCompare('email') === 0){	 
+  if(searchCriteria.criteria.localeCompare('email') === 0){	 
 	 
 	 for(var i=0;i<currentRoom.room_questions.length;i++){
 		 
@@ -188,34 +249,68 @@ if(searchCriteria.criteria.localeCompare('email') === 0){
 			 questions_based_on_email.push(currentRoom.room_questions[i]);
 		    }
 		 }
+	 console.log(questions_based_on_email);  
+	  res.send(questions_based_on_email);
     }//if ends
   else{
 	
 	for(var i=0;i<currentRoom.room_questions.length;i++){
-		
+		if(currentRoom.room_questions[i].question_tags.length === 0){continue;}
 		if(currentRoom.room_questions[i].question_tags.indexOf(searchCriteria.query) > 0){
-			console.log(currentRoom.room_questions[i].question_tags);	
-			   questions_based_on_email.push(currentRoom.room_questions[i]);
-		}
+			   console.log(currentRoom.room_questions[i].question_tags);	
+			   questions_based_on_tag.push(currentRoom.room_questions[i]);
+		 }
 			
-	}//loop
-}//else ends
+	 }//loop
+	 console.log(questions_based_on_tag);  
+	 res.send(questions_based_on_tag);
+ }//else ends
 	
-// console.log(questions_based_on_email);  
+ 
 	 // res.send(room.room_questions);
-	  
-     
-    res.send(questions_based_on_email);
-	
 });
  
  
- /*
+
+
+router.get('/getalltags',function(req,res){
+	 
+	var tagsToSend=[];
+	 var theUrl = url.parse(req.url);
+	  //console.log(theUrl);
+    
+	 // gets the query part of the URL and parses it creating an object
+    var queryObj = queryString.parse(theUrl.query);
+    //console.log(queryObj);
+	 var searchCriteria = JSON.parse(queryObj.jsonData);
+	// console.log(obj);
+	 console.log(searchCriteria.query);
+	 //console.log(currentRoom.room_tags.length);
+//	 for(var i=0;i<currentRoom.room_tags.length;i++){
+//		// console.log(currentRoom.room_tags[i]);
+//			if(currentRoom.room_tags[i].startsWith(searchCriteria.query))
+//			     tagsToSend.push(currentRoom.room_tags[i]);
+//			
+//		}
+	console.log(tagsToSend); 
+	res.send(currentRoom.room_tags) ;
+	
+});
+
+
+
+
+
+
+
+
+/*
   ********************************* DATABASE ROUTE HANDLING ******************************************
   * */
 
  
- router.post('/upload_question',function(req,res){
+ 
+router.post('/upload_question',function(req,res){
 	 
 
 	    //debugger;
