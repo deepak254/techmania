@@ -43,7 +43,6 @@ function store(room_name,roomtags){
 
   
 
-
 // 
 //var tags=['core java','j2ee','j2me','Strings','File Io','socket','jdbc','collections','generics','arrays','flow control',
 //		'localization','interfaces','jsp','servlets','jpa','ejb','jaas','jms','java xml','jndi',

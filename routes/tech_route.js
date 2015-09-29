@@ -356,6 +356,16 @@ router.post('/upload_question',function(req,res){
 }); //upload_question route end
  
 
+
+router.get('/:id/add_answer',function(req,res){
+	
+	var subdoc=mytechrooms.rooms.status[0];
+	console.log(subdoc);
+		//subdoc.question_answers_others.push();
+	
+		 
+	 });
+
  
  router.get('/:id/getQA',function(req,res){
 	 

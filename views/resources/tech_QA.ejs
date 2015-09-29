@@ -150,12 +150,12 @@
 							  Ans:
 							</B>
 							
-							<small >
-							 <%=question.question_answer_owner.answer_content %>
+							<small id="answer">
+							 <%-question.question_answer_owner.answer_content %>
 							 </small>
 							 
 							</p>
-						<span><a class="btn active btn-xs btn-success" href="#">Add Answer</a>
+						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>">Add Answer</a>
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
@@ -167,7 +167,7 @@
 					     <div id="panel-element-42936" class="panel-collapse collapse">
 						   <div class="panel-body">
 						   <p>
-							  <%=question.question_answer_owner.answer_content %>
+							 <%=question.question_answer_owner.answer_content %>
 							  </p>
 						  </div>
 					    </div>
@@ -179,7 +179,41 @@
 		<!--  <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>	-->	
 				</div>
 			 
-		<%})%>
+		
+		<!-- Modal -->
+<div id="_<%=question._id%>" class="modal fade" role="dialog"  aria-labelledby="myModalLabel">
+ 
+<div class="modal-dialog modal-vertical-centered" style="width: 900px;">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <p class="modal-title"> <h4>Add Your Answer to Question:</h4><B class="text-info"> <%=question.question_content %>?</B>
+      </p>
+      </div>
+      <br>
+      <div class="container-fluid">
+    <form action=""> 
+    <input class="form-control" id="exampleInputEmail1" required data-validation-required-message="please enter your email" name=ques[email]
+ 								placeholder="Enter email" type="email">
+ 								<br>
+       <div class="summernote" class="modal-body">
+        <h4 style="color: silver;">Add Your Answer here</h4>
+      </div>
+       <button type="button" style="display:block;margin: 0 auto;" class="btn btn-primary">Submit</button>
+       </form>
+       </div>
+       <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+</div>    
+
+   </div>
+  </div>
+<!-- Answer Modal Ends-->
+		
+	<%})%>
 	
 			
 	
@@ -193,6 +227,9 @@
 </ul> -->
 </div><!-- col- md -10  group -->
 <br>
+
+
+
 <button id="load_more_questions"  href="#" style="display:block;margin: 0 auto;" class="btn-xs btn-warning">load more questions</button>
 
 	<br><br><br><br>
@@ -215,7 +252,24 @@
  
    <script src="js/techqa.js"></script>
  
+<script type="text/javascript">
+   							 $(document).ready(function() {
+        						
+   									
+        						$('.summernote').summernote({
+        							  height: 300
+        							  
 
+        							          // set maximum height of editor
+
+        							  
+        						});
+   							 
+        						
+   							 });
+   							 
+   							 
+   					</script>
 	  
 </body>
 </html>
