@@ -18,7 +18,9 @@
  var socketio = require('socket.io');
  var url = require('url');
  var queryString = require( "querystring" );
-
+ //var paginate = require('nodejs-yapaginate');
+ 
+ 
  var loggedInMember="";
  var currentRoom="";
  var allrooms=[];
@@ -44,6 +46,29 @@ db.once('open',function(msg){
 });
 
 //router.use(flash()); 
+
+//function getNextQuestions(limit){
+//	
+//   if(questions.length<=limit){return questions;}
+//	
+//	var next_questions_to_send=[];
+//	var new_limit_start_index=question_index+1;
+//	
+//	if(question_index > questions.length){
+//		int remaining_questions=questions.length-question_index;
+//		for(var i=0;i<limit;i++){
+//			
+//		} 
+//		
+//	}
+//	for(var i=new_limit_start_index;i<limit;i++){
+//		
+//		next_questions_to_send.push(questions[i]);
+//	}
+//	return next_questions_to_send;
+//}
+
+
 
 function getRooms(){
 	
@@ -129,9 +154,9 @@ router.get('/getContact', function(req,res){
 	 console.log(question_index);
 	 console.log(questions.length);
 	 question_index=question_index+questions.length;
-	if(question_index>questions.length){
-		res.send('End');
-	}
+	 if(question_index>questions.length){
+		res.send('End Results...');
+	 }
 	 
 	 for(var i=question_index;i<=new_limit;i++){
 		 
@@ -172,7 +197,7 @@ router.get('/getContact', function(req,res){
 //	 {	
 //		  questions_to_send.push(questions[question_index]); 	
 //	  }
-	  res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions});
+	  res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions,expressFlash: req.flash('info')});
 	   //console.log(currentRoom);
    //}	
  
@@ -211,6 +236,41 @@ router.get('/typeahead',function(req,res){
  });
  
  
+router.post('/:id/addanswer',function(req,res){
+	 //var theUrl = url.parse( req.url);
+	  //console.log(theUrl);
+    
+	 // gets the query part of the URL and parses it creating an object
+      //var queryObj = queryString.parse(theUrl.query);
+     //console.log(queryObj);
+	 //var add_answer_detail = JSON.parse(queryObj.jsonData);
+	 //console.log(add_answer_detail);
+	console.log(currentRoom.room_questions.id(req.params.id));
+	 
+	currentRoom.room_questions.id(req.params.id).question_answers_others.push({
+		 answer_from_email:req.body.answer.email,
+	     answer_content:req.body.answer.content,
+  	    answer_time:Date.now(),
+  	    answer_rating:0
+	 });
+	 
+	currentRoom.save(function(err){
+		if(err){throw err;}
+	})
+	 console.log(currentRoom.room_questions.id(req.params.id));
+	 
+	req.flash('info', 'you have successfully answered the question!!')
+	 res.redirect('/QA');
+	 
+	// res.send(JSON.stringify(add_answer_detail));
+	 
+ }); 
+	 
+	 
+	 
+
+
+
  router.get('/:id/like',function(req,res){
 	 
 	 var html="<html><body>"+req.params.id+" liked </body></html>"

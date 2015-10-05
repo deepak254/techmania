@@ -43,6 +43,7 @@
 	        			                    	   
 	        			                    	   answer_from_email:String,
 	        			                    	   answer_content:String,
+	        			                    	   answer_time:{type: Date,Default:Date.now},
 	        			                    	   answer_rating:Number
 	        			                    	}
 	        			                     ]

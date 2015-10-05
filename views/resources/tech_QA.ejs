@@ -84,6 +84,18 @@
 			              <li class="info_link text-left" ><a><%=tag%></a></li>
                     <%})%>
                      	 <li class="sidebar-search"><button class="btn-sm btn-warning">load more</button></li>
+                     	 <li>
+                     	 
+                     	<ul class="pagination pagination-mini">
+    <li><a href="#">Prev</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+ 
+    <li><a href="#">Next</a></li>
+  </ul>
+                     
+                     </li>
                      </ul>
                  </div>
                  
@@ -120,6 +132,9 @@
 			<br>
 			<div class="row">
 			
+			<% if ( expressFlash.length > 0 ) { %>
+  <p STYLE="margin-left: 50px;color: green;" >     <%= expressFlash %> </p>
+<% } %>
 		         <div class="col-md-10">
 					
 					
@@ -159,17 +174,27 @@
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
+ 				       
  				       <div class="panel-group" id="panel-79968">
 				        <div class="panel panel-default">
 					      <div class="panel-heading">
-						    <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-79968" href="#panel-element-42936" style="font-size: 12px;">See All Answers</a>
+						    <a class="panel-title collapsed" data-toggle="collapse" href="#<%=question._id%>" style="font-size: 12px;">See All Answers</a>
+					      <strong class="navbar-right" style="margin-right: 2px;">
+					      answered by <%=question.question_answers_others.length%> people
+					      </strong>
 					      </div>
-					     <div id="panel-element-42936" class="panel-collapse collapse">
-						   <div class="panel-body">
-						   <p>
-							 <%=question.question_answer_owner.answer_content %>
-							  </p>
-						  </div>
+					    <br>
+					     <div id="<%=question._id%>" class="panel-collapse collapse">
+						    <%question.question_answers_others.forEach(function(answer){%> 
+						   <section class="alert alert-success">
+						    <small style="color:grey;font-size: 11px;">##Answered By->  <%=answer.answer_from_email %> on <%=answer.answer_time %></small>
+						  <br>
+						   <div>
+							 <%-answer.answer_content %>
+							</div>
+						 
+					       </section>
+					        <%})%>
 					    </div>
 				      </div>
                    </div>
@@ -193,14 +218,14 @@
       </div>
       <br>
       <div class="container-fluid">
-    <form action=""> 
-    <input class="form-control" id="exampleInputEmail1" required data-validation-required-message="please enter your email" name=ques[email]
+    <form  id="answer_form" method="post" action="/<%=question._id%>/addanswer"> 
+    <input class="form-control" id="answer_from_email" required data-validation-required-message="please enter your email" name=answer[email]
  								placeholder="Enter email" type="email">
  								<br>
-       <div class="summernote" class="modal-body">
-        <h4 style="color: silver;">Add Your Answer here</h4>
-      </div>
-       <button type="button" style="display:block;margin: 0 auto;" class="btn btn-primary">Submit</button>
+       <textarea id="answer_editor" class="summernote" class="modal-body" name=answer[content] placeholder="Add your answer here!" required data-validation-required-message="please enter your answer">
+        
+      </textarea>
+       <button type="submit" style="display:block;margin: 0 auto;" class="btn btn-primary">Submit</button>
        </form>
        </div>
        <br>
@@ -215,7 +240,8 @@
 		
 	<%})%>
 	
-			
+
+	
 	
 <!-- 	<ul class="pager">
   <li>
@@ -225,6 +251,10 @@
     <a href="#">Next</a>
   </li>
 </ul> -->
+
+
+
+
 </div><!-- col- md -10  group -->
 <br>
 
@@ -249,7 +279,7 @@
 </div>
 
 
- 
+ <script src="./node_modules/nodejs-yapaginate/lib/main.js"></script>
    <script src="js/techqa.js"></script>
  
 <script type="text/javascript">
@@ -265,11 +295,35 @@
         							  
         						});
    							 
-        						
+        						$("#question_area").paginate({totalItem:100, itemPerPage:10, currentPage:2, url:'/QA',getJson:true});
    							 });
-   							 
-   							 
-   					</script>
+   				</script>
+	 <script type="text/javascript">
+	 
+	 /* var room_id=<%=room._id%>
+	    $("#answer_form").submit(function(e){
+     	   e.preventDefault();
+	 			
+     	  var queryData = {
+     			
+     			answer_room_id:room_id,  
+  		        answer_email:$("#answer_from_email").val(),
+  			    answer_content:$("#answer_editor").html(),
+  				answer_time:Date.now()  
+     	  };
+  	    
+  	     $.ajax({
+  	       url: '/:id/addanswer',
+  	       type: 'POST',
+  	       dataType: 'json',
+  	       data: {jsonData:JSON.stringify(queryData)},
+  	       contentType: 'application/json',
+  		   success: function(data){
+  	       			
+  		   	 }
+  	     });
+	   }
+ */	 </script> 
 	  
 </body>
 </html>

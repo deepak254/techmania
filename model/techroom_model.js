@@ -7,7 +7,7 @@
  var exports = module.exports = {};
   var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://deepak:fcuk1234@ds049631.mongolab.com:49631/mytechroom');
-  //var db = mongoose.connect('mongodb://localhost/mytechroom');
+ // var db = mongoose.connect('mongodb://localhost/mytechroom');
   exports.db=mongoose.connection;
   var techroom_schema=require('../model/tech_room');
   exports.rooms=techroom_schema;
