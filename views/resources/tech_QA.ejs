@@ -38,14 +38,7 @@
   </head>
 <body>
 
- <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+ 
 
 
 <header>
@@ -86,14 +79,7 @@
                      	 <li class="sidebar-search"><button class="btn-sm btn-warning">load more</button></li>
                      	 <li>
                      	 
-                     	<ul class="pagination pagination-mini">
-    <li><a href="#">Prev</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
- 
-    <li><a href="#">Next</a></li>
-  </ul>
+                     	
                      
                      </li>
                      </ul>
@@ -145,12 +131,15 @@
                          </span>
                        </div><!-- /input-group -->
                 
-					<br><br>
+					<br>
             	
+			 <i style="color:silver;">
+					      <%=roomquestions.length%> questions found for  <%=room.room_name%>
+					      </i>
 			
-			
-			
+			<br><br>
 		<div id="question_area" name="div_question">	
+			
 			 <%roomquestions.forEach(function(question){ %>
 		         
 				
@@ -170,7 +159,7 @@
 							 </small>
 							 
 							</p>
-						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>">Add Answer</a>
+						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
@@ -178,21 +167,23 @@
  				       <div class="panel-group" id="panel-79968">
 				        <div class="panel panel-default">
 					      <div class="panel-heading">
-						    <a class="panel-title collapsed" data-toggle="collapse" href="#<%=question._id%>" style="font-size: 12px;">See All Answers</a>
-					      <strong class="navbar-right" style="margin-right: 2px;">
+						   
+					      <strong class="text-danger" style="margin-left: -8px;">
 					      answered by <%=question.question_answers_others.length%> people
 					      </strong>
+					      <a class="btn active btn-xs  navbar-right" data-toggle="collapse" href="#<%=question._id%>" style="font-size: 13px; margin-right: 2px;">See All Answers</a>
 					      </div>
 					    <br>
 					     <div id="<%=question._id%>" class="panel-collapse collapse">
 						    <%question.question_answers_others.forEach(function(answer){%> 
-						   <section class="alert alert-success">
+						   <section class="alert alert-warning">
 						    <small style="color:grey;font-size: 11px;">##Answered By->  <%=answer.answer_from_email %> on <%=answer.answer_time %></small>
-						  <br>
-						   <div>
+						  <br> <br>
+						   <div style="color:black;">
 							 <%-answer.answer_content %>
 							</div>
-						 
+						
+					       
 					       </section>
 					        <%})%>
 					    </div>
@@ -298,32 +289,7 @@
         						$("#question_area").paginate({totalItem:100, itemPerPage:10, currentPage:2, url:'/QA',getJson:true});
    							 });
    				</script>
-	 <script type="text/javascript">
-	 
-	 /* var room_id=<%=room._id%>
-	    $("#answer_form").submit(function(e){
-     	   e.preventDefault();
-	 			
-     	  var queryData = {
-     			
-     			answer_room_id:room_id,  
-  		        answer_email:$("#answer_from_email").val(),
-  			    answer_content:$("#answer_editor").html(),
-  				answer_time:Date.now()  
-     	  };
-  	    
-  	     $.ajax({
-  	       url: '/:id/addanswer',
-  	       type: 'POST',
-  	       dataType: 'json',
-  	       data: {jsonData:JSON.stringify(queryData)},
-  	       contentType: 'application/json',
-  		   success: function(data){
-  	       			
-  		   	 }
-  	     });
-	   }
- */	 </script> 
+	
 	  
 </body>
 </html>
