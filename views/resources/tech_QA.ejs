@@ -59,10 +59,8 @@
                         
                  <li class="sidebar-search">
                    <form id="tag_search_form">         
-                   <div   class="input-group custom-search-form">
-                                
-                             
-                              <input id="remote" type="text" class="form-control" placeholder="Search Tags..">
+                      <div   class="input-group custom-search-form">
+                           <input id="remote" type="text" class="form-control" placeholder="Search Tags.." autocomplete="off">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
@@ -143,7 +141,7 @@
 			 <%roomquestions.forEach(function(question){ %>
 		         
 				
-					 <div class="thumbnail" > 
+					 <div class="thumbnail row" > 
 					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
 							<h4>
@@ -153,7 +151,7 @@
 						    <B>
 							  Ans:
 							</B>
-							
+						
 							<small id="answer">
 							 <%-question.question_answer_owner.answer_content %>
 							 </small>
@@ -270,7 +268,7 @@
 </div>
 
 
- <script src="./node_modules/nodejs-yapaginate/lib/main.js"></script>
+ 
    <script src="js/techqa.js"></script>
  
 <script type="text/javascript">

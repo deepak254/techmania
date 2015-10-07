@@ -18,7 +18,7 @@ jQuery(function($){
      // $('#searchEmailForm').submit(function(e){
           
 	      e.preventDefault();
-	      $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+	      $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
  		 var queryData = {
 		        type:"text",
 			    query:$('#search').val(),
@@ -34,7 +34,7 @@ jQuery(function($){
 	            data: {jsonData:JSON.stringify(queryData)},
 	            contentType: 'application/json',
 			    success: function(data){
-	            	
+			    	 $('#ajax_wait').remove();
 	            	  	  if (data instanceof Array) {
 	            			if(data.length === 0){
 								$('#question_area').html("<h4>No Question Posted by this Email</h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
@@ -106,11 +106,11 @@ $('.info_link').click(function(e){
 /*******************************************searching route for load more tags  Ajax request starts***************************************/	 
  
 
-$(function () {
+
    // var tags = ["australia", "austria", "antartica", "argentina", "algeria"];
  
 	 $('#remote').keyup(function(e){
-		 e.preventDefault();
+		e.preventDefault();
 		//alert($("#remote").val());
 		 var queryData = {
 			        type:'text',
@@ -126,7 +126,7 @@ $(function () {
 			   success: function(data){
 				   		//var questions= JSON.stringify(data);
 				   	    $("#remote").autocomplete({
-				   	     source:data.sort()
+				   	     source:data
 				   	  });
 			   }
 		  }); //ajax request Done
@@ -136,12 +136,12 @@ $(function () {
 //    $("#remote").autocomplete({
 //    	   
 //      });
-});
+
  
 /*******************************************searching route for search tags  Ajax request ends***************************************/ 
 /*******************************************searching route for search tags  Ajax request starts***************************************/
 	 
-$(function () { 
+
   	 $('#tag_search_form').submit(function(e){
   		 e.preventDefault();
   		 $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
@@ -178,7 +178,7 @@ $(function () {
 	  }); //ajax request Done
   		 
    });//submit form ends here
-});
+
  
 /*******************************************searching route for search tags  Ajax request ends***************************************/
 
