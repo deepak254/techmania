@@ -18,7 +18,8 @@ jQuery(function($){
      // $('#searchEmailForm').submit(function(e){
           
 	      e.preventDefault();
-	      $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
+	      $('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
+	     // $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
  		 var queryData = {
 		        type:"text",
 			    query:$('#search').val(),
@@ -34,14 +35,14 @@ jQuery(function($){
 	            data: {jsonData:JSON.stringify(queryData)},
 	            contentType: 'application/json',
 			    success: function(data){
-			    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
+			    	
 	            	  	  if (data instanceof Array) {
 	            			if(data.length === 0){
 								$('#question_area').html("<h4>No Question Posted by this Email</h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
 							    }
 	            			else{ 
 	            		      	 var questions= JSON.stringify(data);
-	            		      	 // $('#question_area').html(" ");
+	            		      	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	            		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
 	 	        	       	  	 $('#question_area').html(html);
 	            	   			}
@@ -64,7 +65,8 @@ $('.info_link').click(function(e){
 		    
 		 //alert($(this).text());
 		  e.preventDefault();
-		  $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+		 // $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+			$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 	      var queryData = {
 		        type:'text',
 			    query:$(this).text(),
@@ -78,14 +80,14 @@ $('.info_link').click(function(e){
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
 		    success: function(data){
-		    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
+		    	
 	       	  	  if (data instanceof Array) {
 	       			if(data.length === 0){
 							$('#question_area').html("<div class=alert alert-danger><h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a></div>");				            				
 						    }
 	       			else{ 
 	       		      	 var questions= JSON.stringify(data);
-	       		      	 // $('#question_area').html(" ");
+	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
 	        	       	  	 $('#question_area').html(html);
 	       	   			}
@@ -144,7 +146,8 @@ $('.info_link').click(function(e){
 
   	 $('#tag_search_form').submit(function(e){
   		 e.preventDefault();
-  		 $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+  		// $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+  		$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 	      var queryData = {
 		        type:'text',
 			    query:$("#remote").val(),
@@ -158,14 +161,14 @@ $('.info_link').click(function(e){
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
 		    success: function(data){
-		    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
+		    	
 	       	  	  if (data instanceof Array) {
 	       			if(data.length === 0){
 							$('#question_area').html("<h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
 						    }
 	       			else{ 
 	       		      	 var questions= JSON.stringify(data);
-	       		      	 // $('#question_area').html(" ");
+	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
 	        	       	  	 $('#question_area').html(html);
 	       	   			}
