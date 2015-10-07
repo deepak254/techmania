@@ -34,7 +34,7 @@ jQuery(function($){
 	            data: {jsonData:JSON.stringify(queryData)},
 	            contentType: 'application/json',
 			    success: function(data){
-			    	 $('#ajax_wait').remove();
+			    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	            	  	  if (data instanceof Array) {
 	            			if(data.length === 0){
 								$('#question_area').html("<h4>No Question Posted by this Email</h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
@@ -78,7 +78,7 @@ $('.info_link').click(function(e){
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
 		    success: function(data){
-	       	
+		    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       	  	  if (data instanceof Array) {
 	       			if(data.length === 0){
 							$('#question_area').html("<div class=alert alert-danger><h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a></div>");				            				
@@ -158,7 +158,7 @@ $('.info_link').click(function(e){
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
 		    success: function(data){
-	       	
+		    	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       	  	  if (data instanceof Array) {
 	       			if(data.length === 0){
 							$('#question_area').html("<h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
