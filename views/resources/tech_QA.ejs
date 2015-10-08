@@ -132,7 +132,7 @@
 					<br>
             	
 			 <i style="color:silver;">
-					      <%=roomquestions.length%> questions found for  <%=room.room_name%>
+					     Total <%=roomquestions.length%> questions found for  <%=room.room_name%>
 					      </i>
 			
 			<br><br>
@@ -145,14 +145,14 @@
 					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
 							<h4>
-							  Q: <%=question.question_content %> ?
+							  Q: <%-question.question_content %> ?
 							</h4>
 							<p class="text-justify">
 						    <B>
 							  Ans:
 							</B>
 						
-							<small id="answer">
+							<small id="answer" style="font-size: 14px;">
 							 <%-question.question_answer_owner.answer_content %>
 							 </small>
 							 
@@ -202,7 +202,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <p class="modal-title"> <h4>Add Your Answer to Question:</h4><B class="text-info"> <%=question.question_content %>?</B>
+      <p class="modal-title"> <strong class="text-info" style="text-decoration: underline;">Add Your Answer to Question:</strong><br><br><B><%-question.question_content %>?</B>
       </p>
       </div>
       <br>
@@ -248,9 +248,9 @@
 <br>
 
 
-
+<% if (roomquestions.length > 10 ) { %>
 <button id="load_more_questions"  href="#" style="display:block;margin: 0 auto;" class="btn-xs btn-warning">load more questions</button>
-
+<%}%>
 	<br><br><br><br>
    <p>Copyright &copy; techmania</p>
 </div> <!-- after panel group -->
@@ -268,7 +268,7 @@
 </div>
 
 
- 
+ <script src="/nodejs-yapaginate/lib/main.js"></script>
    <script src="js/techqa.js"></script>
  
 <script type="text/javascript">
@@ -284,7 +284,7 @@
         							  
         						});
    							 
-        						$("#question_area").paginate({totalItem:100, itemPerPage:10, currentPage:2, url:'/QA',getJson:true});
+        						$("#question_area").paginate({totalItem:16, itemPerPage:10, currentPage:1, url:'/QA',getJson:true});
    							 });
    				</script>
 	

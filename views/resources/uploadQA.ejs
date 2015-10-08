@@ -65,15 +65,15 @@
 						
 						<div class="form-group">
 							<label class="control-label" for="textarea1">Question</label>
-							<textarea class="form-control" name=ques[question] id="textarea1" placeholder="Ask Question here" required data-validation-required-message="enter question"></textarea>
+							<textarea class="form-control" name=ques[question] id="ques_summernote" placeholder="Ask Question here" required data-validation-required-message="enter question"><i style="color: silver;">place your question here</i></textarea>
 						</div>
-						
+				
 						<div class="form-group">
 							<label class="control-label" for="summernote">Answer</label>
 					
 								<!-- <div id="summernote">Type your answer here</div> -->
 								
-						<textarea class="form-control" id="summernote" placeholder="Answer here" required data-validation-required-message="answer could not be blank" name=ques[answer]></textarea>
+						<textarea class="form-control" id="ans_summernote" placeholder="Answer here" required data-validation-required-message="answer could not be blank" name=ques[answer]><i style="color: silver;">place your answer here</i></textarea>
 							
 						
 						
@@ -150,15 +150,19 @@
             					
        							 });
    									
-        						$('#summernote').summernote({
-        							  height: 100
+        						$('#ans_summernote').summernote({
+        							  height: 200
 
         							          // set maximum height of editor
-
-        							  
-        						});
+								});
    							 
         						
+        						$('#ques_summernote').summernote({
+      							  height: 100
+
+      							          // set maximum height of editor
+								});
+   							 
    							 });
    							 
    							 

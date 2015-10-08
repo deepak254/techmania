@@ -400,7 +400,7 @@ router.get('/:id/add_answer',function(req,res){
 	 mytechroom.rooms.findOne({ '_id' : req.params.id },function(err,room){
 		  if(err){throw err;}
 		  currentRoom=room;
-		  questions=room.room_questions
+		  questions=room.room_questions.sort({question_sentDate: -1});
 		  //int len=room.room_questions.length;
 	      res.redirect('/QA');
 		 

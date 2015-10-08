@@ -18,8 +18,8 @@ jQuery(function($){
      // $('#searchEmailForm').submit(function(e){
           
 	      e.preventDefault();
-	      $('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
-	     // $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
+	      //$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
+	     $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
  		 var queryData = {
 		        type:"text",
 			    query:$('#search').val(),
@@ -65,8 +65,8 @@ $('.info_link').click(function(e){
 		    
 		 //alert($(this).text());
 		  e.preventDefault();
-		 // $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
-			$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
+		 $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+			//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 	      var queryData = {
 		        type:'text',
 			    query:$(this).text(),
@@ -105,7 +105,7 @@ $('.info_link').click(function(e){
  
 
 
-/*******************************************searching route for load more tags  Ajax request starts***************************************/	 
+/*******************************************route for get all tags Ajax request starts***************************************/	 
  
 
 
@@ -140,14 +140,17 @@ $('.info_link').click(function(e){
 //      });
 
  
-/*******************************************searching route for search tags  Ajax request ends***************************************/ 
-/*******************************************searching route for search tags  Ajax request starts***************************************/
+/******************************************* route for get all tags  Ajax request ends***************************************/ 
+
+
+/*******************************************searching route for search tags form submit  Ajax request starts***************************************/
+	 
 	 
 
   	 $('#tag_search_form').submit(function(e){
   		 e.preventDefault();
-  		// $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
-  		$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
+  		$('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+  		//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 	      var queryData = {
 		        type:'text',
 			    query:$("#remote").val(),
