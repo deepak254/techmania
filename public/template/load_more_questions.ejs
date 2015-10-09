@@ -1,15 +1,10 @@
- <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
  
  <% morequestions.forEach(function(question){ %>
 		         
 				
-					 <div id="load_more_div" class="thumbnail" > 
+		         
+					 <div class="thumbnail" > 
 					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
 							<h4>
@@ -20,26 +15,36 @@
 							  Ans:
 							</B>
 							
-							<small >
+							<small id="answer" style="font-size: 14px;">
 							 <%=question.question_answer_owner.answer_content %>
 							 </small>
 							 
 							</p>
-						<span><a class="btn active btn-xs btn-success" href="#">Add Answer</a>
-							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
+					<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
+ 				       
  				       <div class="panel-group" id="panel-79968">
 				        <div class="panel panel-default">
 					      <div class="panel-heading">
-						    <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-79968" href="#panel-element-42936" style="font-size: 12px;">See All Answers</a>
+						     <strong class="text-danger" style="margin-left: -8px;">
+					      answered by <%=question.question_answers_others.length%> people
+					      </strong>
+					      <a class="btn active btn-xs  navbar-right" data-toggle="collapse" href="#<%=question._id%>" style="font-size: 13px; margin-right: 2px;">See All Answers</a>
 					      </div>
-					     <div id="panel-element-42936" class="panel-collapse collapse">
-						   <div class="panel-body">
-						   <p>
-							  <%=question.question_answer_owner.answer_content %>
-							  </p>
-						  </div>
+					    <br>
+					     <div id="<%=question._id%>" class="panel-collapse collapse">
+						    <%question.question_answers_others.forEach(function(answer){%> 
+						   <section class="alert alert-warning">
+						    <small style="color:grey;font-size: 11px;">##Answered By->  <%=answer.answer_from_email %> on <%=answer.answer_time %></small>
+						  <br> <br>
+						   <div style="color:black;">
+							 <%=answer.answer_content %>
+							</div>
+						 
+					       </section>
+					        <%})%>
 					    </div>
 				      </div>
                    </div>
@@ -49,5 +54,69 @@
 		<!--  <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>	-->	
 				</div>
 			 
+		
+		<!-- Modal -->
+<div id="_<%=question._id%>" class="modal fade" role="dialog"  aria-labelledby="myModalLabel">
+ 
+<div class="modal-dialog modal-vertical-centered" style="width: 900px;">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <p class="modal-title"> <strong class="text-info" style="text-decoration: underline;">Add Your Answer to Question:</strong><br><br><B> <%=question.question_content %>?</B>
+      </p>
+      </div>
+      <br>
+      <div class="container-fluid">
+    <form  id="answer_form" method="post" action="/<%=question._id%>/addanswer"> 
+    <input class="form-control" id="answer_from_email" required data-validation-required-message="please enter your email" name=answer[email]
+ 								placeholder="Enter email" type="email">
+ 								<br>
+       <textarea id="answer_editor" class="summernote" class="modal-body" name=answer[content] placeholder="Add your answer here!" required data-validation-required-message="please enter your answer">
+        
+      </textarea>
+       <button type="submit" style="display:block;margin: 0 auto;" class="btn btn-primary">Submit</button>
+       </form>
+       </div>
+       <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+</div>    
+
+   </div>
+  </div>
+<!-- Answer Modal Ends-->
+		
 		<%})%>
-	-
+		
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script  type="text/javascript" src="/js/jquery-ui.js"></script>
+
+<link href="css/summernote.css" rel="stylesheet" />
+<script src="js/summernote.min.js"></script>
+	            
+	            
+	            
+	             <script>
+	             
+	            
+   							 $(document).ready(function() {
+        						
+   									
+        						$('.summernote').summernote({
+        							  height: 300
+        							  
+
+        							          // set maximum height of editor
+
+        							  
+        						});
+   							 
+        						
+   							 });
+   				</script>
+   				
+   			
+		

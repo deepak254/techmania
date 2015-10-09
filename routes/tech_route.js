@@ -24,7 +24,7 @@
  var loggedInMember="";
  var currentRoom="";
  var allrooms=[];
- var roomQuestions=[];
+ var load_more_questions=[];
 
  var questions_limit=0;
  var question_index=0;
@@ -45,28 +45,7 @@ db.once('open',function(msg){
 		console.log('connection succeeded');
 });
 
-//router.use(flash()); 
 
-//function getNextQuestions(limit){
-//	
-//   if(questions.length<=limit){return questions;}
-//	
-//	var next_questions_to_send=[];
-//	var new_limit_start_index=question_index+1;
-//	
-//	if(question_index > questions.length){
-//		int remaining_questions=questions.length-question_index;
-//		for(var i=0;i<limit;i++){
-//			
-//		} 
-//		
-//	}
-//	for(var i=new_limit_start_index;i<limit;i++){
-//		
-//		next_questions_to_send.push(questions[i]);
-//	}
-//	return next_questions_to_send;
-//}
 
 
 
@@ -148,42 +127,41 @@ router.get('/getContact', function(req,res){
  
  //route that loads and sends 10 questions on each ajax request..
  router.get('/load_more',function(req,res){
-	 var more_questions=[];
-	 question_index++;
-	 var new_limit=questions_limit+2;
-	 console.log(question_index);
-	 console.log(questions.length);
-	 question_index=question_index+questions.length;
-	 if(question_index>questions.length){
-		res.send('End Results...');
+	 
+	// var loadmore=load_more_questions;
+	  //console.log(load_more_questions.length);
+	 if(load_more_questions.length === 0){
+		 res.send('No More Questions');
 	 }
-	 
-	 for(var i=question_index;i<=new_limit;i++){
-		 
-		 if(i === questions.length){
-			break;
-		}
-		else{
-		  more_questions.push(questions[i]);
-		}
-	}
-	 
-	 res.send(more_questions);
-	 
+	
+    else{
+		 var send_ten=load_more_questions.splice(0,10);
+	     res.send(send_ten);
+     }
  });
  
  
  //#2
  router.get('/QA', function(req,res){
+	
+	load_more_questions=questions.slice();
+	
+	 if(load_more_questions.length>10){ 
+		 var start_questions=load_more_questions.splice(0,10);
+		 res.render('./resources/tech_QA',{room:currentRoom,roomquestions:start_questions,expressFlash: req.flash('info')});
+	 }
+	 else{
+		 res.render('./resources/tech_QA',{room:currentRoom,roomquestions:load_more_questions,expressFlash: req.flash('info')}); 
+	 }
 
-	  res.render('./resources/tech_QA',{room:currentRoom,roomquestions:questions,expressFlash: req.flash('info')});
+	
 });
  
  
  router.get('/table', function(req,res){
 	 mytechroom.rooms.findOne({room_name:'Node js'}, function(err,room){
 	      if(err){res.send("error");}
-	      roomQuestions=room.room_questions;
+	     // roomQuestions=room.room_questions;
 	     res.render('./resources/all_questions',{questions:room.room_questions});
 	  });
 		

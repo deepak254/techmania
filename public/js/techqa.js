@@ -20,7 +20,8 @@ jQuery(function($){
 	      e.preventDefault();
 	      //$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 	     $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
- 		 var queryData = {
+	     $('#result_end').empty();
+	     var queryData = {
 		        type:"text",
 			    query:$('#search').val(),
 			    criteria:'email'
@@ -67,7 +68,8 @@ $('.info_link').click(function(e){
 		  e.preventDefault();
 		 $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
 			//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
-	      var queryData = {
+		 $('#result_end').empty(); 
+		 var queryData = {
 		        type:'text',
 			    query:$(this).text(),
 			    criteria:'tag'
@@ -113,6 +115,7 @@ $('.info_link').click(function(e){
  
 	 $('#remote').keyup(function(e){
 		e.preventDefault();
+		 $('#result_end').empty();
 		//alert($("#remote").val());
 		 var queryData = {
 			        type:'text',
@@ -151,7 +154,8 @@ $('.info_link').click(function(e){
   		 e.preventDefault();
   		$('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
   		//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
-	      var queryData = {
+  		 $('#result_end').empty();  
+  		var queryData = {
 		        type:'text',
 			    query:$("#remote").val(),
 			    criteria:'tag'
@@ -196,40 +200,35 @@ $('.info_link').click(function(e){
 
 
 
-$(function () { 
+
  	 $('#load_more_questions').click(function(e){
  		 e.preventDefault();
  		
- 		 $('#question_area').append("<img id=ajax_load src=/images/please-wait.gif layout=block></img>");
+ 		 $('#result_end').html("<img src=/images/please-wait.gif layout=block></img>");
 	     $.ajax({
 	       url: '/load_more',
 	       type: 'GET',
 	      success: function(data){
 	       			
-	    	  		if (data instanceof Array) {
-	       			if(data.length === 0){
-							$('#question_area').html("<h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a>");				            				
-						    }
-	       			else{ 
+	    	  	  if (data instanceof Array) {
+	       			
 	       				
 	       		      	 var questions= JSON.stringify(data);
 	       		      	 // $('#question_area').html(" ");
 	       		      	var html= new EJS({url: '/template/load_more_questions.ejs'}).render({morequestions:data});
-	       		          $('#ajax_load').remove();  
-	        	       	 $('#question_area').append(html);
+	       		          $('#question_area').append(html);
+	        	          $('#result_end').empty();
 	       	   			}
-	        	     }// if ends 
+	        	     // if ends 
 	        	else{
-	        		$('#ajax_load').remove(); 
-	        		$('#result_end').remove(); 
-	        	    $('#question_area').append("<h3 id=result_end>"+data+"</h3>"); 
-	        	}//else ends
+	        		 // $('#ajax_load').remove();  
+	        	      $('#result_end').html(data);
+	        	    }//else ends
 	         }//ajax success function
 	    
 	  }); //ajax request Done
  		 
   });//submit form ends here
-});
 
 
 

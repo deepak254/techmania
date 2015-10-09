@@ -132,7 +132,7 @@
 					<br>
             	
 			 <i style="color:silver;">
-					     Total <%=roomquestions.length%> questions found for  <%=room.room_name%>
+					     Total <%=room.room_questions.length%> questions found for  <%=room.room_name%>
 					      </i>
 			
 			<br><br>
@@ -246,9 +246,9 @@
 
 </div><!-- col- md -10  group -->
 <br>
-
-
-<% if (roomquestions.length > 10 ) { %>
+<h3 class="text-primary" style="text-align: center;" id="result_end"></h3>
+<br>
+<% if (roomquestions.length >= 10 ) { %>
 <button id="load_more_questions"  href="#" style="display:block;margin: 0 auto;" class="btn-xs btn-warning">load more questions</button>
 <%}%>
 	<br><br><br><br>
