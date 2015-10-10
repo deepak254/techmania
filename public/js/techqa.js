@@ -44,8 +44,9 @@ jQuery(function($){
 	            			else{ 
 	            		      	 var questions= JSON.stringify(data);
 	            		      	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
-	            		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
-	 	        	       	  	 $('#question_area').html(html);
+	            		      	var  html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
+	 	        	       	  	// $('#question_area').html(f);
+	            		      	document.getElementById('question_area').innerHTML=html;
 	            	   			}
 	 	        	     }// if ends 
 	 	        	else{
@@ -91,7 +92,8 @@ $('.info_link').click(function(e){
 	       		      	 var questions= JSON.stringify(data);
 	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
-	        	       	  	 $('#question_area').html(html);
+	       		        document.getElementById('question_area').innerHTML=html;  	
+	       		      	//$('#question_area').html(html);
 	       	   			}
 	        	     }// if ends 
 	        	else{
@@ -177,7 +179,8 @@ $('.info_link').click(function(e){
 	       		      	 var questions= JSON.stringify(data);
 	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
 	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
-	        	       	  	 $('#question_area').html(html);
+	        	       	  	// $('#question_area').html(html);
+	       		     document.getElementById('question_area').innerHTML=html;
 	       	   			}
 	        	     }// if ends 
 	        	else{
