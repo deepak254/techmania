@@ -1,25 +1,35 @@
  
+function getsummernote(){
+	$('.summernote').summernote({
+		  height: 100
+		  
+ });
+}
 
 
 
 
 jQuery(function($){
    
-	   
+	
+	
+	
+		
+		
+		getsummernote();
+
+	
  /*******************************************searching route  for email Ajax request starts***************************************/	 
 	 
-	   //var rooms= <%- JSON.stringify(roomquestions) %>;
-	   //JSON.stringify(rooms);
-	   //alert(rooms);
- 	   //alert(JSON.stringify(rooms));
 	
-	 
 	 $('#search').keyup(function(e){
      // $('#searchEmailForm').submit(function(e){
           
 	      e.preventDefault();
+	      $('#question_area').empty();
 	      //$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
-	     $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
+	    // $('#question_area').html("<img id=ajax_wait  src=/images/please-wait.gif layout=block></img>");
+	      document.getElementById('question_area').innerHTML="<img src=/images/please-wait.gif layout=block></img>";
 	     $('#result_end').empty();
 	     var queryData = {
 		        type:"text",
@@ -44,16 +54,20 @@ jQuery(function($){
 	            			else{ 
 	            		      	 var questions= JSON.stringify(data);
 	            		      	$('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
-	            		      	var  html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
+	            		      	new EJS({url: '/template/search_results.ejs'}).update('question_area',{from_email:queryData.query,searchquestions:data});
 	 	        	       	  	// $('#question_area').html(f);
-	            		      	document.getElementById('question_area').innerHTML=html;
+	            		      	//document.getElementById('question_area').innerHTML=html;
 	            	   			}
 	 	        	     }// if ends 
 	 	        	else{
 	 	        		
 	 	        	    $('#question_area').html("<h3>"+data+"</h3>"); 
 	 	        	}//else ends
-	              }//ajax success function
+	              },//ajax success function
+	              complete: function( xhr, status ) {
+	        			
+		        	   getsummernote();
+		        }
 	       }); //ajax request Done
      });//form Submission ends
    
@@ -62,14 +76,14 @@ jQuery(function($){
 	 
 	 
 /*******************************************searching route for tag link Ajax request starts***************************************/	 
-	 
-$('.info_link').click(function(e){
-		    
-		 //alert($(this).text());
-		  e.preventDefault();
-		 $('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+ $(".nav").on("click",".info_link", function(e){ 
+ //$('.info_link').click(function(e){
+		  $('html,body').scrollTop(0); 
+	      e.preventDefault();
+		  $('#question_area').empty();
+		 
 			//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
-		 $('#result_end').empty(); 
+		 //$('#result_end').empty(); 
 		 var queryData = {
 		        type:'text',
 			    query:$(this).text(),
@@ -82,17 +96,23 @@ $('.info_link').click(function(e){
 	       dataType: 'json',
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
-		    success: function(data){
+	       beforeSend:function(){
+	    	   document.getElementById('question_area').innerHTML="<img src=/images/please-wait.gif layout=block></img>";
+	       },
+	       success: function(data){
 		    	
 	       	  	  if (data instanceof Array) {
 	       			if(data.length === 0){
 							$('#question_area').html("<div class=alert alert-danger><h4>No Question Posted with Tag <strong class=text-danger>"+queryData.query+"</strong></h4><a href=/QA>SHOW ALL QUESTIONS</a></div>");				            				
-						    }
-	       			else{ 
+							$('#load_more_questions').hide();	
+	       					}
+	       			else{
+	       				 if(data.length<=10){$('#load_more_questions').hide();}
 	       		      	 var questions= JSON.stringify(data);
-	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
-	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
-	       		        document.getElementById('question_area').innerHTML=html;  	
+	       		         new EJS({url: '/template/search_results.ejs'}).update('question_area',{from_email:queryData.query,searchquestions:data});
+	       		         
+	       		      //var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
+	       		      	// document.getElementById('question_area').innerHTML=html;  	
 	       		      	//$('#question_area').html(html);
 	       	   			}
 	        	     }// if ends 
@@ -100,7 +120,11 @@ $('.info_link').click(function(e){
 	        		
 	        	    $('#question_area').html("<h3>"+data+"</h3>"); 
 	        	}//else ends
-	         }//ajax success function
+	         },//ajax success function
+	        complete: function( xhr, status ) {
+	        			
+	        	   getsummernote();
+	        }
 	  }); //ajax request Done
 	});
 
@@ -208,24 +232,36 @@ $('.info_link').click(function(e){
  		 e.preventDefault();
  		
  		 $('#result_end').html("<img src=/images/please-wait.gif layout=block></img>");
+       var queryData = {
+		        
+ 			    criteria:'question'
+	        };
+ 		 
 	     $.ajax({
 	       url: '/load_more',
 	       type: 'GET',
+	       dataType: 'json',
+	       data: {jsonData:JSON.stringify(queryData)},
 	      success: function(data){
 	       			
 	    	  	  if (data instanceof Array) {
-	       			
-	       				
+	    	  		  	if(data.length === 0){
+	    	  		  	 // $('#result_end').empty();
+	    	  		  	//document.getElementById('result_end').innerHTML="No more Questions"; 
+	    	  		  	 $('#result_end').html("No More Questions");
+	    	  		  	}
+	    	  	else{		
 	       		      	 var questions= JSON.stringify(data);
 	       		      	 // $('#question_area').html(" ");
-	       		      	var html= new EJS({url: '/template/load_more_questions.ejs'}).render({morequestions:data});
+	       		      	 var html= new EJS({url: '/template/load_more_questions.ejs'}).render({morequestions:data});
 	       		          $('#question_area').append(html);
 	        	          $('#result_end').empty();
-	       	   			}
+	    	  	}		
+	    	  	}
 	        	     // if ends 
 	        	else{
 	        		 // $('#ajax_load').remove();  
-	        	      $('#result_end').html(data);
+	        	      $('#result_end').html("No More");
 	        	    }//else ends
 	         }//ajax success function
 	    
@@ -244,6 +280,51 @@ $('.info_link').click(function(e){
 
 /*******************************************route for load More Questions  Ajax request ends***************************************/
 
+ 	 
+ 	 
+ 	 
+ 	 $('#load_more_tags').click(function(e){
+ 		 e.preventDefault();
+ 		 $('#side-menu').append("<li id=wait><img src=/images/load-tag-wait.gif layout=block></img><li>");
+ 		// $('#more_tags').remove();
+ 		var queryData = {
+		        
+ 			    criteria:'tag'
+	        };
+ 		 
+ 		 $.ajax({
+	       url: '/load_more',
+	       type: 'GET',
+	       dataType: 'json',
+	       data: {jsonData:JSON.stringify(queryData)},
+	       success: function(data){
+	       			
+	    	  	  if (data instanceof Array) {
+	       			
+	    	  		  	if(data.length === 0){
+	    	  		  	    $('#wait').remove();
+	    	  		  		$('#end').html("<span class=info_link text-left><small style=font-size:14px class=text-danger>no more tags</small></span>");
+	    	  		  	 }
+	    	  		  else{
+	    	  		  	var tags= JSON.stringify(data);
+	       		      	 $('#wait').remove();
+	       		         for(var i=0;i<data.length;i++){
+	       		        	 $('#side-menu').append("<li class=info_link text-left><a>"+data[i]+"</a></li>");
+	       		            }
+	       		           //$('#side-menu').append(" <li id=more_tags class="sidebar-search" ><button id=load_more_tags class=btn-sm btn-warning>load more</button></li>"); 
+	       		         
+	    	  		    }
+	    	  		  }
+	        	     // if ends 
+	        	 else{
+	        		 // $('#ajax_load').remove();  
+	        	    //  $('#result_end').html(data);
+	        	    }//else ends
+	         }//ajax success function
+	    
+	  }); //ajax request Done
+ 		 
+  });//submit form ends here 	 
 
 });// outer most jquery
  

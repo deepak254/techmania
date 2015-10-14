@@ -25,6 +25,7 @@
  var currentRoom="";
  var allrooms=[];
  var load_more_questions=[];
+ var load_more_tags=[];
 
  var questions_limit=0;
  var question_index=0;
@@ -88,6 +89,11 @@ router.get('/upload', function(req,res){
 
 
 //#3
+router.get('/room', function(req,res){
+			
+			res.render('techroom');
+	});
+//#3
 router.get('/getContact', function(req,res){
 			
 			res.render('contact_us');
@@ -127,31 +133,48 @@ router.get('/getContact', function(req,res){
  
  //route that loads and sends 10 questions on each ajax request..
  router.get('/load_more',function(req,res){
-	 
+	 var send_ten=[]
 	// var loadmore=load_more_questions;
 	  //console.log(load_more_questions.length);
-	 if(load_more_questions.length === 0){
-		 res.send('No More Questions');
-	 }
-	
-    else{
-		 var send_ten=load_more_questions.splice(0,10);
-	     res.send(send_ten);
-     }
+	 var theUrl = url.parse( req.url);
+	 // gets the query part of the URL and parses it creating an object
+     var queryObj = queryString.parse(theUrl.query);
+     //console.log(queryObj);
+	 var searchCriteria = JSON.parse(queryObj.jsonData);
+	 
+	 
+	 if(searchCriteria.criteria.localeCompare('question') === 0){
+	 
+	 
+	   
+		  send_ten=load_more_questions.splice(0,10);
+	      res.send(send_ten);
+     
+    }//searchcreteria 
+
+	 else{
+		 
+		  send_ten=load_more_tags.splice(0,10);
+	      res.send(send_ten);
+		} 
+	 
  });
  
  
  //#2
  router.get('/QA', function(req,res){
 	
-	load_more_questions=questions.slice();
-	
+	 load_more_tags=currentRoom.room_tags.slice();
+	 load_more_questions=questions.slice();
+	 
+	 var start_tags=load_more_tags.splice(0,13);
+	 
 	 if(load_more_questions.length>10){ 
 		 var start_questions=load_more_questions.splice(0,10);
-		 res.render('./resources/tech_QA',{room:currentRoom,roomquestions:start_questions,expressFlash: req.flash('info')});
+		 res.render('./resources/tech_QA',{room:currentRoom,tags:start_tags,roomquestions:start_questions,expressFlash: req.flash('info')});
 	 }
 	 else{
-		 res.render('./resources/tech_QA',{room:currentRoom,roomquestions:load_more_questions,expressFlash: req.flash('info')}); 
+		 res.render('./resources/tech_QA',{room:currentRoom,tags:start_tags,roomquestions:load_more_questions,expressFlash: req.flash('info')}); 
 	 }
 
 	
