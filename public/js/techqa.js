@@ -178,7 +178,8 @@ jQuery(function($){
 
   	 $('#tag_search_form').submit(function(e){
   		 e.preventDefault();
-  		$('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
+  		$('#question_area').empty();
+  		//$('#question_area').html("<img src=/images/please-wait.gif layout=block></img>");
   		//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
   		 $('#result_end').empty();  
   		var queryData = {
@@ -193,6 +194,9 @@ jQuery(function($){
 	       dataType: 'json',
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
+	       beforeSend:function(){
+	    	   document.getElementById('question_area').innerHTML="<img src=/images/please-wait.gif layout=block></img>";
+	       },
 		    success: function(data){
 		    	
 	       	  	  if (data instanceof Array) {
@@ -202,9 +206,10 @@ jQuery(function($){
 	       			else{ 
 	       		      	 var questions= JSON.stringify(data);
 	       		      $('#question_area').html("<h3 class=text-info>WAIT FOR A WHILE</h3>");	
-	       		      	var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
+	       		      new EJS({url: '/template/search_results.ejs'}).update('question_area',{from_email:queryData.query,searchquestions:data});
 	        	       	  	// $('#question_area').html(html);
-	       		     document.getElementById('question_area').innerHTML=html;
+	       		       // document.getElementById('question_area').innerHTML=html;
+	       		         getsummernote();
 	       	   			}
 	        	     }// if ends 
 	        	else{
@@ -230,8 +235,8 @@ jQuery(function($){
 
  	 $('#load_more_questions').click(function(e){
  		 e.preventDefault();
- 		
- 		 $('#result_end').html("<img src=/images/please-wait.gif layout=block></img>");
+ 		//$('#result_end').empty();
+ 		 //$('#result_end').html("<img src=/images/please-wait.gif layout=block></img>");
        var queryData = {
 		        
  			    criteria:'question'
@@ -242,6 +247,9 @@ jQuery(function($){
 	       type: 'GET',
 	       dataType: 'json',
 	       data: {jsonData:JSON.stringify(queryData)},
+	       beforeSend:function(){
+	    	   document.getElementById('result_end').innerHTML="<img src=/images/please-wait.gif layout=block></img>";
+	       },
 	      success: function(data){
 	       			
 	    	  	  if (data instanceof Array) {
@@ -251,7 +259,7 @@ jQuery(function($){
 	    	  		  	 $('#result_end').html("No More Questions");
 	    	  		  	}
 	    	  	else{		
-	       		      	 var questions= JSON.stringify(data);
+	       		      	var questions= JSON.stringify(data);
 	       		      	 // $('#question_area').html(" ");
 	       		      	 var html= new EJS({url: '/template/load_more_questions.ejs'}).render({morequestions:data});
 	       		          $('#question_area').append(html);

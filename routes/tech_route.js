@@ -48,7 +48,9 @@ db.once('open',function(msg){
 
 
 
-
+function comp(a, b) {
+    return new Date(b.question_sentDate) - new Date(a.question_sentDate);
+}
 
 function getRooms(){
 	
@@ -134,31 +136,20 @@ router.get('/getContact', function(req,res){
  //route that loads and sends 10 questions on each ajax request..
  router.get('/load_more',function(req,res){
 	 var send_ten=[]
-	// var loadmore=load_more_questions;
-	  //console.log(load_more_questions.length);
 	 var theUrl = url.parse( req.url);
 	 // gets the query part of the URL and parses it creating an object
      var queryObj = queryString.parse(theUrl.query);
      //console.log(queryObj);
 	 var searchCriteria = JSON.parse(queryObj.jsonData);
-	 
-	 
 	 if(searchCriteria.criteria.localeCompare('question') === 0){
-	 
-	 
-	   
-		  send_ten=load_more_questions.splice(0,10);
+	     send_ten=load_more_questions.sort(comp).splice(0,10);
 	      res.send(send_ten);
-     
-    }//searchcreteria 
-
-	 else{
-		 
-		  send_ten=load_more_tags.splice(0,10);
-	      res.send(send_ten);
+      }//searchcreteria 
+   else{
+		 send_ten=load_more_tags.splice(0,10);
+	     res.send(send_ten);
 		} 
-	 
- });
+	 });
  
  
  //#2
@@ -401,7 +392,7 @@ router.get('/:id/add_answer',function(req,res){
 	 mytechroom.rooms.findOne({ '_id' : req.params.id },function(err,room){
 		  if(err){throw err;}
 		  currentRoom=room;
-		  questions=room.room_questions.sort({question_sentDate: -1});
+		  questions=room.room_questions.sort(comp);
 		  //int len=room.room_questions.length;
 	      res.redirect('/QA');
 		 

@@ -145,7 +145,11 @@
   <script type="text/javascript">
    							 $(document).ready(function() {
         						$('#example-dropRight').multiselect({
-        						inheritClass: true, 
+        						//inheritClass: true, 
+        						 buttonContainer: '<div class="dropdown"/>', 
+        						 
+        						buttonClass: 'btn btn-danger btn-lg',
+        						//selectedClass: 'bg-danger',
         						buttonWidth: '200px',
             					 maxHeight: 200
             					

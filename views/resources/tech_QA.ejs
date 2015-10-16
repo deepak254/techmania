@@ -109,16 +109,19 @@
 		
 	<div class="col-md-10">
 	  <br>
-	  <h2 class="text-left">
+	  <span >
+	  <h2 class="text-left" style="display:inline-block;">
 			 <%=room.room_name%> Interview Questions
 			</h2>
-			<br>
+		
+		</span>
+		<br><br>
 			<div class="row">
 			
 			<% if ( expressFlash.length > 0 ) { %>
   <p STYLE="margin-left: 50px;color: green;" >     <%= expressFlash %> </p>
 <% } %>
-		         <div class="col-md-10">
+		         <div class="col-md-11">
 					
 					
 					  <div class="input-group">
@@ -140,13 +143,11 @@
 		
 			
 			 <%roomquestions.forEach(function(question){ %>
-		         
-				
-					 <div class="thumbnail row" > 
-					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
+		        	 <div class="thumbnail row" > 
+					   <h4 style="color:grey;font-size: 11px;">##<%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
 							<h4>
-							  Q: <%-question.question_content %>
+							<span> Q:<%-question.question_content%></span>
 							</h4>
 							<p class="text-justify">
 						    <B>
@@ -156,7 +157,7 @@
 							<small id="answer" style="font-size: 14px;">
 							 <%-question.question_answer_owner.answer_content %>
 							 </small>
-							 
+						 
 							</p>
 						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
@@ -260,9 +261,9 @@
 
 <br>
 
-<div class="col-md-2">
+<div class="col-md-2 navbar-right">
 <br>
-<a class="btn-sm btn-primary" href="/upload">Upload QA</a>
+<a class="btn btn-sm btn-default" href="/upload" style="font-size: 13px;"><b>Upload QA</b></a>
 </div>
 
 </div>
