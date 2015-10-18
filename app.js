@@ -52,16 +52,29 @@ var app = express();
   app.use(passport.initialize());
   app.use(passport.session());
   
-  app.use('/',routepath.router);
-
+  
 //var rooms=myroom.rooms;
 // all environments
 app.use(methodOverride('X-HTTP-Method-Override'));
+
+
+
 if (process.env.NODE_ENV === 'development') {
-  // only use in development
-app.use(errorhandler());
+
+	
+	//  // only use in development
+//	app.use(function(err, req, res, next) {
+//		if (err instanceof UploadError) {
+//			console.log('middleware ');
+//	        res.render('./resources/uploaderror');
+//	    } else {
+//	        next(err);
+//	    }
+////	    res.status(err.status || 500);
+//	});
 }
 
+app.use('/',routepath.router);
 
 
  app.enable('trust proxy');
@@ -73,9 +86,6 @@ app.use(errorhandler());
 
 
 
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-});
 
 
 var server=http.createServer(app).listen( process.env.PORT || 3000, function(){

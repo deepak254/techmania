@@ -41,8 +41,8 @@
 	        			      question_answers_others:[
 	        			                       {
 	        			                    	   
-	        			                    	   answer_from_email:String,
-	        			                    	   answer_content:String,
+	        			                    	   answer_from_email:{type:String},
+	        			                    	   answer_content:{type:String},
 	        			                    	   answer_time:{type: Date,Default:Date.now},
 	        			                    	   answer_rating:Number
 	        			                    	}

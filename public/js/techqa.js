@@ -14,7 +14,7 @@ jQuery(function($){
 	
 	
 	
-		
+	$('#flash').empty();
 		
 		getsummernote();
 
@@ -66,7 +66,7 @@ jQuery(function($){
 	              },//ajax success function
 	              complete: function( xhr, status ) {
 	        			
-		        	   getsummernote();
+		        	  // getsummernote();
 		        }
 	       }); //ajax request Done
      });//form Submission ends

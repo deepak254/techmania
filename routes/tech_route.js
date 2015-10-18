@@ -30,10 +30,10 @@
  var questions_limit=0;
  var question_index=0;
 //express().use(bodyParser.urlencoded());
-express().use(bodyParser.json());
+//express().use(bodyParser.json());
 
 
-
+router.use(uploadErrorHandler);
 var mytechroom=require('../model/techroom_model');
 //var tech_roomSchema=require('../model/tech_room');
  
@@ -45,6 +45,17 @@ db.on('error',function(msg){
 db.once('open',function(msg){
 		console.log('connection succeeded');
 });
+
+
+function uploadErrorHandler(err, req, res, next) {
+	res.status(err.status || 500);
+	if (err instanceof UploadError) {
+		console.log('middleware ');
+        res.render('./resources/uploaderror');
+    } else {
+        next(err);
+    }
+}
 
 
 
@@ -61,6 +72,12 @@ function getRooms(){
 	
 	
 }
+
+//#2
+router.get('/error', function(req,res){
+		
+		res.render('./resources/uploaderror');
+});
 
 router.get('/flash', function(req, res){
 	  // Set a flash message by passing the key, followed by the value, to req.flash().
@@ -173,7 +190,7 @@ router.get('/getContact', function(req,res){
  
  
  router.get('/table', function(req,res){
-	 mytechroom.rooms.findOne({room_name:'Node js'}, function(err,room){
+	 mytechroom.rooms.findOne({room_name:'Java'}, function(err,room){
 	      if(err){res.send("error");}
 	     // roomQuestions=room.room_questions;
 	     res.render('./resources/all_questions',{questions:room.room_questions});
@@ -330,9 +347,9 @@ router.get('/getalltags',function(req,res){
 
  
  
-router.post('/upload_question',function(req,res){
+router.post('/upload_question',function(req,res,next){
 	 
-
+	
 	    //debugger;
 	   // myroom.checkThisRoom(req,res);
 	   //req.flash('info', 'user already there Dude !!');
@@ -364,12 +381,19 @@ router.post('/upload_question',function(req,res){
 		   		 
 		   		room.save(function(err){
 		   			 
-		   			 if(err){throw err;}
-		   			 
+		   			 if(err){
+		   				
+		   				req.flash('info','Error occurred.Some Parameters are Incorrect Or Missed');
+		   				next(new Error('UploadError'));
+		   				
+		   			 }
+		   		   else{
+		   			 req.flash('info','Question Uploaded Successfully.Upload More.');
+		   			 //res.redirect('/upload');  
+		   		    }
+		   			 res.redirect('/upload');
 		   		 });
-		   		 req.flash('info', 'Question Uploaded Successfully.Upload More.');
-	   			 //res.redirect('/upload');  
-	   			 res.redirect('back');
+		   		
 		       }				
 		    });
 		
