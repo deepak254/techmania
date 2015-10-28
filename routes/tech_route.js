@@ -1,7 +1,7 @@
 /**
  * 
  */
-/**
+/**<!-- <%- include('./template/search_results.ejs', {search:false,searchquestions:roomquestions}) %> -->
  * 
  */
 // This File Contains all Route Handling related Stuff:: Deepak Tiwari
@@ -19,7 +19,7 @@
  var url = require('url');
  var queryString = require( "querystring" );
  //var paginate = require('nodejs-yapaginate');
- 
+ var ejs = require('ejs');
  
  var loggedInMember="";
  var currentRoom="";

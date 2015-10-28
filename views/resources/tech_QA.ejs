@@ -2,13 +2,11 @@
 <html>
 <head>
  
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+
+
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-  <![endif]-->
+
 
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -23,14 +21,12 @@
   <link href="css/sb-admin-2.css" rel="stylesheet">
 
 <script type="text/javascript"  src="js/ejs_production.js"></script>
-<script type="text/javascript" src= "./node_modules/ejs/ejs.min.js"></script>
 
-    <link rel='stylesheet' href='/css/style.css' />
+
+ 
     
-    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    
 
-    <!-- Timeline CSS -->
-    <link href="css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
 
@@ -38,7 +34,7 @@
   </head>
 <body>
 
- 
+ <div id="fb-root"></div>
 
 
 <header>
@@ -159,7 +155,7 @@
 							 </small>
 						 
 							</p>
-						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
+						<span><a  name="add_answer" class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
 							<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
@@ -190,17 +186,17 @@
 				      </div>
                    </div>
 				
-				   <!-- Your like button code -->
+				 <!--   Your like button code -->
    
-		<!--  <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>	-->	
+		 <!-- <div class="fb-comments" data-href="http://localhost:3000/QA" data-numposts="5"></div>		 -->
 				</div>
 			 
 		
-		<!-- Modal -->
+	<!-- 	Modal -->
 <div id="_<%=question._id%>" class="modal fade" role="dialog"  aria-labelledby="myModalLabel">
  
 <div class="modal-dialog modal-vertical-centered" style="width: 900px;">
-    <!-- Modal content-->
+  <!--   Modal content -->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -227,7 +223,7 @@
 
    </div>
   </div>
-<!-- Answer Modal Ends-->
+  <!-- Answer Modal Ends -->
 		
 	<%})%>
 	
@@ -270,7 +266,7 @@
 </div>
 
 
- <script src="/nodejs-yapaginate/lib/main.js"></script>
+
    <script src="js/techqa.js"></script>
  
 

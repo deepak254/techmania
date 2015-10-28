@@ -44,6 +44,7 @@ var app = express();
 //app.use(flash());
 
   app.use(express.static(path.join(__dirname, 'public')));
+ // app.use(express.static(path.join(__dirname, 'views')));
   app.use(cookieParser());
   app.use(bodyParser()); 
   //app.use(bodyParser.json());

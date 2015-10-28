@@ -1,30 +1,14 @@
-<html>
-<body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
-	<div class="alert alert-success" role="alert">
-     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-  		Questions from <%=from_email%> <p class="navbar-right" style="margin-right: 4px;"><i> <%=searchquestions.length%> questions found</i></p>
-   
-    </div>
-	 <a href="/QA">Show All</a>
-	<br><br>
-			 <%searchquestions.forEach(function(question){ %>
-			       
-			
-					 
+ 
+ <% morequestions.forEach(function(question){ %>
+		         
+				
+		         
 					 <div class="thumbnail" > 
 					   <h4 style="color:grey;font-size: 11px;">## <%=question.question_from_email %> posted on <%=question.question_sentDate %></h4>
 						<div class="caption">
 							<h4>
-							  Q:<%=question.question_content %>
+							  Q: <%=question.question_content %> ?
 							</h4>
 							<p class="text-justify">
 						    <B>
@@ -36,8 +20,8 @@
 							 </small>
 							 
 							</p>
-						<span><a  name="add_answer" class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
-							 <div class="fb-like" data-href="http://mytechroom.herokuaoo.com/room" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+						<span><a class="btn active btn-xs btn-success" href="#" data-toggle="modal" data-target="#_<%=question._id%>" style="font-size: 14px;">Add Answer</a>
+					<div class="fb-like navbar-right" style="margin-right: 11px;" data-href="http:/mytechroom.herokuapp.com/<%=question._id%>/like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 					   </span>
 					   </div>
  				       
@@ -105,22 +89,34 @@
 <!-- Answer Modal Ends-->
 		
 		<%})%>
-     
-
-	     <script>
-	     
-	    
-	    
-	       $('.summernote').summernote({
-		     height: 100
-		  
-         }); 
-              
-        
-	    	
-	    </script> 
-       
-		</body>
-</html>
 		
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script  type="text/javascript" src="/js/jquery-ui.js"></script>
+
+<link href="css/summernote.css" rel="stylesheet" />
+<script src="js/summernote.min.js"></script>
+	            
+	            
+	            
+	             <script>
+	             
+	            
+   							 $(document).ready(function() {
+        						
+   									
+        						$('.summernote').summernote({
+        							  height: 300
+        							  
+
+        							          // set maximum height of editor
+
+        							  
+        						});
+   							 
+        						
+   							 });
+   				</script>
+   				
+   			
 		

@@ -1,12 +1,27 @@
- 
+ function facebookLikeAndShare(d, s, id) {
+	        		  var js, fjs = d.getElementsByTagName(s)[0];
+	        		  if (d.getElementById(id)) return;
+	        		  js = d.createElement(s); js.id = id;
+	        		  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
+	        		  fjs.parentNode.insertBefore(js, fjs);
+	        		}	
+
+ 	
 function getsummernote(){
-	$('.summernote').summernote({
-		  height: 100
+	$(document).ready(function() {
+	$('textarea').summernote({
+		//airMode: true,
+		focus:true,
+		height: 100
 		  
  });
+});	
 }
 
+function destroySummernote(){
+	$('.summernote').destroy();
 
+}
 
 
 jQuery(function($){
@@ -14,17 +29,18 @@ jQuery(function($){
 	
 	
 	
-	$('#flash').empty();
+	//$('#flash').empty();
 		
-		getsummernote();
-
+	facebookLikeAndShare(document, 'script', 'facebook-jssdk');
+	 // getsummernote();
+	  //destroySummernote();
 	
  /*******************************************searching route  for email Ajax request starts***************************************/	 
 	 
 	
 	 $('#search').keyup(function(e){
      // $('#searchEmailForm').submit(function(e){
-          
+		 destroySummernote();
 	      e.preventDefault();
 	      $('#question_area').empty();
 	      //$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
@@ -66,7 +82,7 @@ jQuery(function($){
 	              },//ajax success function
 	              complete: function( xhr, status ) {
 	        			
-		        	  // getsummernote();
+		        	 //getsummernote();
 		        }
 	       }); //ajax request Done
      });//form Submission ends
@@ -77,11 +93,12 @@ jQuery(function($){
 	 
 /*******************************************searching route for tag link Ajax request starts***************************************/	 
  $(".nav").on("click",".info_link", function(e){ 
+	
  //$('.info_link').click(function(e){
 		  $('html,body').scrollTop(0); 
 	      e.preventDefault();
-		  $('#question_area').empty();
-		 
+	      $('#question_area').empty(); 
+	      destroySummernote();
 			//$('#question_area').html("<h3 class=text-info>LOADING...</h3>").animate();	
 		 //$('#result_end').empty(); 
 		 var queryData = {
@@ -92,11 +109,13 @@ jQuery(function($){
 	    
 	    $.ajax({
 	       url: '/searching',
+	       async: true,
 	       type: 'GET',
 	       dataType: 'json',
 	       data: {jsonData:JSON.stringify(queryData)},
 	       contentType: 'application/json',
 	       beforeSend:function(){
+	    	  
 	    	   document.getElementById('question_area').innerHTML="<img src=/images/please-wait.gif layout=block></img>";
 	       },
 	       success: function(data){
@@ -109,11 +128,14 @@ jQuery(function($){
 	       			else{
 	       				 if(data.length<=10){$('#load_more_questions').hide();}
 	       		      	 var questions= JSON.stringify(data);
-	       		         new EJS({url: '/template/search_results.ejs'}).update('question_area',{from_email:queryData.query,searchquestions:data});
-	       		         
-	       		      //var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
-	       		      	// document.getElementById('question_area').innerHTML=html;  	
+	       		        new EJS({url: '/template/search_results.ejs'}).update('question_area',{from_email:queryData.query,searchquestions:data});
+	       		        
+	       		     // var html= new EJS({url: '/template/search_results.ejs'}).render({from_email:queryData.query,searchquestions:data});
+	       		     
+	       		        // document.getElementById('question_area').innerHTML=html;  	
 	       		      	//$('#question_area').html(html);
+	       		    // facebookLikeAndShare(document, 'div', 'fb-like-share');
+	       		 	//facebookLikeAndShare(document, 'div', 'facebook-jssdk');
 	       	   			}
 	        	     }// if ends 
 	        	else{
@@ -122,8 +144,8 @@ jQuery(function($){
 	        	}//else ends
 	         },//ajax success function
 	        complete: function( xhr, status ) {
-	        			
-	        	   getsummernote();
+	        	//facebookLikeAndShare(document, 'div', 'facebook-jssdk');
+	        	 //getsummernote();
 	        }
 	  }); //ajax request Done
 	});
@@ -333,6 +355,13 @@ jQuery(function($){
 	  }); //ajax request Done
  		 
   });//submit form ends here 	 
+
+
+ 	$('a[name=add_answer]').click(function(e){
+ 		
+ 		 getsummernote();
+ 	});
+
 
 });// outer most jquery
  
